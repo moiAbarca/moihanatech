@@ -1,0 +1,562 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact Us" description="Get in touch with MoiHana Tech. We're here to answer your questions and help bring your project to life.">
+  <!-- Hero Section -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>Let's Talk</h1>
+      <p>Have a project in mind? We'd love to hear from you.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+          <h2>Send us a Message</h2>
+          <p class="form-intro">Fill out the form below and we'll get back to you within 24 hours.</p>
+          
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                placeholder="John Doe"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                placeholder="john@example.com"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input 
+                type="tel" 
+                id="phone" 
+                name="phone" 
+                placeholder="+1 (555) 123-4567"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service Interested In *</label>
+              <select id="service" name="service" required>
+                <option value="">Select a service</option>
+                <option value="web-design">Web Design & Development</option>
+                <option value="automation">n8n Automation</option>
+                <option value="web-app">Web Application</option>
+                <option value="mobile-app">Mobile Application</option>
+                <option value="consulting">Consulting</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                <option value="">Select budget range</option>
+                <option value="under-5k">Under $5,000</option>
+                <option value="5k-10k">$5,000 - $10,000</option>
+                <option value="10k-25k">$10,000 - $25,000</option>
+                <option value="25k-50k">$25,000 - $50,000</option>
+                <option value="50k-plus">$50,000+</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Project Details *</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="6" 
+                required 
+                placeholder="Tell us about your project, timeline, and any specific requirements..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span>Send Message</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M4.5 10H15.5M15.5 10L10.5 5M15.5 10L10.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="form-message" id="formMessage"></div>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-wrapper">
+          <div class="contact-info-card">
+            <h3>Contact Information</h3>
+            <p>We're here to help and answer any questions you might have.</p>
+
+            <div class="info-items">
+              <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div>
+                  <h4>Email</h4>
+                  <a href="mailto:hello@moihanatech.com">hello@moihanatech.com</a>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">📱</div>
+                <div>
+                  <h4>Phone</h4>
+                  <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div>
+                  <h4>Location</h4>
+                  <p>San Francisco, CA<br>United States</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">🕐</div>
+                <div>
+                  <h4>Business Hours</h4>
+                  <p>Monday - Friday: 9am - 6pm PST<br>Weekend: By appointment</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-response">
+            <div class="response-icon">⚡</div>
+            <h4>Quick Response Time</h4>
+            <p>We typically respond to all inquiries within 24 hours during business days.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Quick answers to common questions</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>How long does a typical project take?</h3>
+          <p>Project timelines vary based on complexity. A simple website might take 2-4 weeks, while a complex web application could take 2-3 months. We'll provide a detailed timeline during our initial consultation.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is your pricing structure?</h3>
+          <p>We offer flexible pricing based on project scope, complexity, and your budget. We provide detailed quotes after understanding your requirements and can work with fixed-price or hourly arrangements.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Do you provide ongoing support?</h3>
+          <p>Yes! We offer maintenance packages and ongoing support to ensure your solution continues to perform optimally. We're here for you long after launch.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Can you work with our existing systems?</h3>
+          <p>Absolutely! We specialize in integrations and can work with your existing infrastructure, APIs, and third-party services to create seamless solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 10rem 0 6rem;
+    text-align: center;
+    background: 
+      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero p {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Contact Section */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+  }
+
+  /* Contact Form */
+  .contact-form-wrapper h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-intro {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.95rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 1rem;
+    background: var(--color-bg-light);
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-radius: 8px;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  .submit-btn {
+    padding: 1.25rem 2.5rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .form-message {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+  }
+
+  .form-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    display: block;
+  }
+
+  .form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    display: block;
+  }
+
+  /* Contact Info */
+  .contact-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .contact-info-card {
+    background: var(--color-bg-light);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(100, 116, 139, 0.1);
+  }
+
+  .contact-info-card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-info-card > p {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .info-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .info-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .info-item h4 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+  }
+
+  .info-item a {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+  }
+
+  .info-item a:hover {
+    color: var(--color-secondary);
+  }
+
+  .info-item p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .social-links h4 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-icons a {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-lighter);
+    border-radius: 10px;
+    color: var(--color-text-muted);
+    transition: all 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateY(-3px);
+  }
+
+  .quick-response {
+    background: var(--gradient-primary);
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+  }
+
+  .response-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .quick-response h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: white;
+  }
+
+  .quick-response p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    background: var(--color-bg-light);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .faq-item {
+    background: var(--color-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(100, 116, 139, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+  }
+
+  .faq-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .faq-item p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 8rem 0 4rem;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const formMessage = document.getElementById('formMessage') as HTMLDivElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    // Show loading state
+    const submitBtn = form.querySelector('.submit-btn') as HTMLButtonElement;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span>Sending...</span>';
+    submitBtn.disabled = true;
+
+    // Simulate form submission (replace with your actual endpoint)
+    try {
+      // TODO: Replace with your actual form submission endpoint
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Success
+      formMessage.textContent = 'Thank you! We\'ve received your message and will get back to you soon.';
+      formMessage.className = 'form-message success';
+      form.reset();
+    } catch (error) {
+      // Error
+      formMessage.textContent = 'Oops! Something went wrong. Please try again or email us directly.';
+      formMessage.className = 'form-message error';
+    } finally {
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    }
+  });
+</script>

@@ -1,0 +1,215 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="logo">
+  <img src="/logo.png" alt="MoiHana Tech" class="logo-img" />
+</a>
+    
+    <button class="menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links">
+      <li><a href="/" class={currentPath === '/' ? 'active' : ''}>Home</a></li>
+      <li><a href="/services" class={currentPath === '/services' ? 'active' : ''}>Services</a></li>
+      <li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>About</a></li>
+      <li><a href="/contact" class={currentPath === '/contact' ? 'active' : ''}>Contact</a></li>
+    </ul>
+
+    <a href="/contact" class="cta-button">Get Started</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .logo-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .logo-accent {
+    color: var(--color-secondary);
+    -webkit-text-fill-color: var(--color-secondary);
+  }
+
+  .logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .logo-img {
+    height: 32px;
+  }
+}
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--color-text);
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    width: 100%;
+  }
+
+  .cta-button {
+    padding: 0.75rem 1.75rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    padding: 0.5rem;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      padding: 1rem 1.5rem;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background: var(--color-bg-light);
+      flex-direction: column;
+      padding: 6rem 2rem;
+      gap: 2rem;
+      transition: right 0.3s ease;
+      border-left: 1px solid rgba(100, 116, 139, 0.1);
+    }
+
+    .nav-links.active {
+      right: 0;
+    }
+
+    .cta-button {
+      display: none;
+    }
+
+    .nav-links a {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const body = document.body;
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+    
+    const spans = menuToggle.querySelectorAll('span');
+    if (menuToggle.classList.contains('active')) {
+      spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+    } else {
+      spans[0].style.transform = 'none';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'none';
+    }
+  });
+
+  // Close menu when clicking on a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks?.classList.remove('active');
+      menuToggle?.classList.remove('active');
+      const spans = menuToggle?.querySelectorAll('span');
+      if (spans) {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+  });
+</script>
