@@ -701,24 +701,62 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* Responsive */
-  @media (max-width: 968px) {
-    .service-content {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-
-    .service-content.reverse {
-      direction: ltr;
-    }
-
-    .mobile-visual, .automation-visual {
-      height: 300px;
-    }
-
-    .phone-frame {
-      transform: scale(0.8);
-    }
+/* Responsive */
+@media (max-width: 968px) {
+  .service-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
+
+  .service-content.reverse {
+    direction: ltr;
+  }
+
+  .service-visual {
+    order: 2; /* Move visual below text on mobile */
+  }
+
+  .service-text {
+    order: 1; /* Text comes first on mobile */
+  }
+
+  .mobile-visual, .automation-visual {
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-frame {
+    transform: scale(0.7);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 8rem 0 4rem;
+  }
+
+  .service-features ul {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .phone-frame {
+    transform: scale(0.6);
+  }
+
+  .mobile-visual {
+    height: 300px;
+  }
+}
 
   @media (max-width: 768px) {
     .page-hero {
