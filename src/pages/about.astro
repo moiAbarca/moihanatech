@@ -16,22 +16,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="mission-grid">
         <div class="mission-card">
-          <div class="mission-icon">🎯</div>
+            <div class="mission-icon">
+              <img src="/icons/mission.svg" alt="Mission Icon" />
+            </div>
           <h2>Our Mission</h2>
           <p>
-            To empower businesses of all sizes with cutting-edge technology solutions that drive 
-            growth, efficiency, and innovation. We believe in making advanced technology accessible 
-            and delivering exceptional value to every client we serve.
+            To empower businesses with modern, reliable, 
+            and efficient digital solutions. 
+            We design and build fast static websites, 
+            develop custom web and mobile applications, 
+            and automate workflows with n8n to help organisations save time, 
+            reduce complexity, and focus on what truly matters.
           </p>
         </div>
 
         <div class="mission-card">
-          <div class="mission-icon">🚀</div>
+            <div class="mission-icon">
+              <img src="/icons/vision.svg" alt="Vision Icon" />
+            </div>
           <h2>Our Vision</h2>
           <p>
-            To be the trusted technology partner that transforms ideas into reality. We envision 
-            a future where every business can leverage the power of modern technology to achieve 
-            their goals and stay ahead of the competition.
+            To become the trusted technology partner for businesses seeking clarity, 
+            innovation, and long‑term growth. 
+            We envision a future where every organisation, regardless of size, 
+            can leverage simple, powerful, and accessible 
+            technology to turn ideas into real, measurable results.
           </p>
         </div>
       </div>
@@ -52,7 +61,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </p>
           <p>
             From day one, we've been committed to excellence, innovation, and client satisfaction. 
-            We don't just build products—we build partnerships. Every project is an opportunity to 
+            We don't just build products, we build partnerships. Every project is an opportunity to 
             create something remarkable and help our clients achieve their vision.
           </p>
           <p>
@@ -170,10 +179,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="member-avatar">
             <div class="avatar-placeholder">👨‍💻</div>
           </div>
-          <h3>John Doe</h3>
-          <p class="role">Founder & Lead Developer</p>
+          <h3>Moises Abarca</h3>
+          <p class="role">Developer & Automation Specialist</p>
           <p class="bio">
-            Full-stack developer with 8+ years of experience in building scalable web applications.
+            Developer with 5+ years of experience in building scalable web applications.
+            Expert in workflow automation and integrations, helping businesses work smarter.
           </p>
         </div>
 
@@ -181,23 +191,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="member-avatar">
             <div class="avatar-placeholder">👩‍💻</div>
           </div>
-          <h3>Jane Smith</h3>
+          <h3>Hana Masuda</h3>
           <p class="role">UI/UX Designer</p>
           <p class="bio">
             Creative designer specializing in user-centered design and creating beautiful interfaces.
           </p>
         </div>
 
-        <div class="team-member">
-          <div class="member-avatar">
-            <div class="avatar-placeholder">👨‍💼</div>
-          </div>
-          <h3>Mike Johnson</h3>
-          <p class="role">Automation Specialist</p>
-          <p class="bio">
-            Expert in workflow automation and integrations, helping businesses work smarter.
-          </p>
-        </div>
       </div>
     </div>
   </section>
@@ -207,21 +207,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">50+</div>
+          <div class="stat-number">30+</div>
           <div class="stat-label">Projects Completed</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">30+</div>
+          <div class="stat-number">20+</div>
           <div class="stat-label">Happy Clients</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">100%</div>
           <div class="stat-label">Success Rate</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">Support Available</div>
-        </div>
+
       </div>
     </div>
   </section>
@@ -239,6 +236,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+.mission-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.mission-icon img {
+  width: 200px;
+  height: 200px;
+}
   .page-hero {
     padding: 10rem 0 1rem;
     text-align: center;
@@ -433,7 +444,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .team-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
+    gap: 6rem;
   }
 
   .team-member {

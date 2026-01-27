@@ -7,9 +7,12 @@ const currentYear = new Date().getFullYear();
     <div class="footer-content">
       <div class="footer-section">
         <div class="footer-logo">
-  <img src="/logo.png" alt="" class="footer-logo-img" />
-</div>
-        <p class="footer-tagline">Building the future, one line of code at a time.</p>
+          <img src="/logo.png" alt="" class="footer-logo-img" />
+        </div>
+        <p class="footer-tagline">
+          Building the future, <br>
+          one line of code at a time.
+        </p>
       </div>
 
       <div class="footer-section">
@@ -64,6 +67,13 @@ const currentYear = new Date().getFullYear();
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 3rem;
     margin-bottom: 3rem;
+  }
+
+  .footer-section {
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    text-align: left;
   }
 
   .footer-section h3,
