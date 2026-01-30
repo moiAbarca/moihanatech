@@ -17,7 +17,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="service-content">
         <div class="service-text">
           <span class="service-badge">Web Design & Development</span>
-          <h2>Beautiful Websites That Convert</h2>
+          <h2>We Build Websites That Win Hearts and Sales</h2>
           <p class="service-description">
             We create stunning, responsive websites that not only look amazing but also deliver results. 
             Our designs are user-centric, SEO-optimized, and built with the latest web technologies.
@@ -38,7 +38,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="tech-stack">
             <h4>Technologies We Use:</h4>
             <div class="tech-tags">
-              <span class="tech-tag">React</span>
               <span class="tech-tag">Next.js</span>
               <span class="tech-tag">Astro</span>
               <span class="tech-tag">Tailwind CSS</span>
@@ -48,12 +47,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         
         <div class="service-visual">
-          <div class="visual-card">
-            <div class="browser-bar">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="visual-content"></div>
-          </div>
+          <!-- Lottie Animation Container -->
+          <div id="webDevAnimation" class="lottie-container"></div>
         </div>
       </div>
     </div>
@@ -64,13 +59,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="service-content reverse">
         <div class="service-visual">
-          <div class="automation-visual">
-            <div class="node node-1"></div>
-            <div class="node node-2"></div>
-            <div class="node node-3"></div>
-            <div class="connection con-1"></div>
-            <div class="connection con-2"></div>
-          </div>
+          <!-- Lottie Animation Container -->
+          <div id="automationAnimation" class="lottie-container"></div>
         </div>
 
         <div class="service-text">
@@ -87,7 +77,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <li>✓ API integrations</li>
               <li>✓ Data synchronization</li>
               <li>✓ Email & notification automation</li>
-              <li>✓ CRM workflow automation</li>
               <li>✓ Social media automation</li>
               <li>✓ Custom workflow design</li>
             </ul>
@@ -150,27 +139,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <span class="tech-tag">Python</span>
               <span class="tech-tag">PostgreSQL</span>
               <span class="tech-tag">MongoDB</span>
-              <span class="tech-tag">AWS</span>
               <span class="tech-tag">Docker</span>
             </div>
           </div>
         </div>
         
         <div class="service-visual">
-          <div class="app-visual">
-            <div class="app-window">
-              <div class="app-sidebar"></div>
-              <div class="app-main">
-                <div class="app-header"></div>
-                <div class="app-grid">
-                  <div class="app-card"></div>
-                  <div class="app-card"></div>
-                  <div class="app-card"></div>
-                  <div class="app-card"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- Lottie Animation Container -->
+          <div id="webAppAnimation" class="lottie-container"></div>
         </div>
       </div>
     </div>
@@ -181,15 +157,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="container">
       <div class="service-content reverse">
         <div class="service-visual">
-          <div class="mobile-visual">
-            <div class="phone-frame">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <div class="mobile-header"></div>
-                <div class="mobile-content"></div>
-              </div>
-            </div>
-          </div>
+          <!-- Lottie Animation Container -->
+          <div id="mobileAppAnimation" class="lottie-container"></div>
         </div>
 
         <div class="service-text">
@@ -204,7 +173,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <h3>Our Expertise:</h3>
             <ul>
               <li>✓ iOS & Android development</li>
-              <li>✓ Cross-platform solutions (React Native, Flutter)</li>
               <li>✓ UI/UX design for mobile</li>
               <li>✓ API integration</li>
               <li>✓ App store deployment</li>
@@ -289,7 +257,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .page-hero {
-    padding: 10rem 0 6rem;
+    padding: 10rem 0 0rem;
     text-align: center;
     background: 
       radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
@@ -309,7 +277,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   /* Service Detail Sections */
   .service-detail {
-    padding: 6rem 0;
+    padding: 4rem 0;
   }
 
   .service-detail.alt {
@@ -414,7 +382,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 1.5rem;
   }
 
-  /* Visual Elements */
+  /* Lottie Animation Container */
   .service-visual {
     height: 100%;
     display: flex;
@@ -422,208 +390,52 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     justify-content: center;
   }
 
-  .visual-card {
+  .lottie-container {
     width: 100%;
     max-width: 500px;
-    background: var(--color-bg-light);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  }
-
-  .browser-bar {
-    background: var(--color-bg-lighter);
-    padding: 0.75rem;
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .browser-bar span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--color-text-muted);
-  }
-
-  .visual-content {
-    height: 300px;
-    background: 
-      linear-gradient(to bottom, var(--color-bg-lighter) 20%, transparent 20%),
-      linear-gradient(to bottom, var(--color-bg-lighter) 40%, transparent 40%),
-      linear-gradient(to bottom, var(--color-bg-lighter) 60%, transparent 60%);
-    background-size: 100% 50px;
-    background-position: 0 20px, 0 80px, 0 140px;
-    animation: shimmer 2s infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-
-  .automation-visual {
-    position: relative;
-    width: 100%;
     height: 400px;
-  }
-
-  .node {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: var(--gradient-primary);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  .node-1 {
-    top: 20%;
-    left: 20%;
-    animation-delay: 0s;
-  }
-
-  .node-2 {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: 1s;
-  }
-
-  .node-3 {
-    bottom: 20%;
-    right: 20%;
-    animation-delay: 2s;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-    }
-    50% {
-      transform: scale(1.05);
-      box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
-    }
-  }
-
-  .connection {
-    position: absolute;
-    height: 2px;
-    background: var(--gradient-secondary);
-    animation: flow 2s ease-in-out infinite;
-  }
-
-  .con-1 {
-    width: 150px;
-    top: 30%;
-    left: 25%;
-    transform: rotate(20deg);
-  }
-
-  .con-2 {
-    width: 180px;
-    top: 60%;
-    left: 45%;
-    transform: rotate(-20deg);
-  }
-
-  @keyframes flow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-
-  .app-visual {
-    width: 100%;
-    max-width: 500px;
-  }
-
-  .app-window {
-    background: var(--color-bg-light);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     display: flex;
-    height: 400px;
-  }
-
-  .app-sidebar {
-    width: 80px;
-    background: var(--color-bg-lighter);
-  }
-
-  .app-main {
-    flex: 1;
-    padding: 1.5rem;
-  }
-
-  .app-header {
-    height: 40px;
-    background: var(--color-bg-lighter);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-
-  .app-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .app-card {
-    height: 140px;
-    background: var(--color-bg-lighter);
-    border-radius: 8px;
-  }
-
-  .mobile-visual {
-    display: flex;
+    align-items: center;
     justify-content: center;
-  }
-
-  .phone-frame {
-    width: 280px;
-    height: 560px;
-    background: var(--color-bg-lighter);
-    border-radius: 40px;
-    padding: 12px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-  }
-
-  .phone-notch {
-    width: 120px;
-    height: 25px;
-    background: var(--color-bg);
-    border-radius: 0 0 20px 20px;
-    margin: 0 auto 8px;
-  }
-
-  .phone-screen {
-    width: 100%;
-    height: calc(100% - 33px);
-    background: var(--color-bg);
-    border-radius: 28px;
-    overflow: hidden;
-  }
-
-  .mobile-header {
-    height: 60px;
-    background: var(--gradient-primary);
-  }
-
-  .mobile-content {
-    padding: 1rem;
+    background: var(--color-bg-light);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   }
 
   /* Process Section */
   .process-section {
     background: var(--color-bg-light);
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    alignment-baseline: central;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
   }
 
   .process-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    align-items: center;
+    justify-items: center;
+    align-self: center;
+    align-content: center;
+    alignment-baseline: central;
   }
 
   .process-step {
@@ -701,62 +513,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   /* Responsive */
-/* Responsive */
-@media (max-width: 968px) {
-  .service-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
+  @media (max-width: 968px) {
+    .service-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
 
-  .service-content.reverse {
-    direction: ltr;
-  }
+    .service-content.reverse {
+      direction: ltr;
+    }
 
-  .service-visual {
-    order: 2; /* Move visual below text on mobile */
-  }
+    .service-visual {
+      order: 2;
+    }
 
-  .service-text {
-    order: 1; /* Text comes first on mobile */
-  }
+    .service-text {
+      order: 1;
+    }
 
-  .mobile-visual, .automation-visual {
-    height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .lottie-container {
+      height: 350px;
+    }
   }
-
-  .phone-frame {
-    transform: scale(0.7);
-  }
-}
-
-@media (max-width: 768px) {
-  .page-hero {
-    padding: 8rem 0 4rem;
-  }
-
-  .service-features ul {
-    grid-template-columns: 1fr;
-  }
-
-  .benefit-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .process-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .phone-frame {
-    transform: scale(0.6);
-  }
-
-  .mobile-visual {
-    height: 300px;
-  }
-}
 
   @media (max-width: 768px) {
     .page-hero {
@@ -774,5 +552,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .process-grid {
       grid-template-columns: 1fr;
     }
+
+    .lottie-container {
+      height: 300px;
+    }
   }
 </style>
+
+<script>
+  // Import Lottie
+  import lottie from 'lottie-web';
+
+  // Load animations when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    // Web Development Animation
+    const webDevContainer = document.getElementById('webDevAnimation');
+    if (webDevContainer) {
+      lottie.loadAnimation({
+        container: webDevContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/animations/web-dev.json' // Your animation file
+      });
+    }
+
+    // Automation Animation
+    const automationContainer = document.getElementById('automationAnimation');
+    if (automationContainer) {
+      lottie.loadAnimation({
+        container: automationContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/animations/automation.json'
+      });
+    }
+
+    // Web App Animation
+    const webAppContainer = document.getElementById('webAppAnimation');
+    if (webAppContainer) {
+      lottie.loadAnimation({
+        container: webAppContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/animations/web-app.json'
+      });
+    }
+
+    // Mobile App Animation
+    const mobileAppContainer = document.getElementById('mobileAppAnimation');
+    if (mobileAppContainer) {
+      lottie.loadAnimation({
+        container: mobileAppContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/animations/mobile-app.json'
+      });
+    }
+  });
+</script>
