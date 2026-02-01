@@ -82,27 +82,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </ul>
           </div>
 
-          <div class="benefits">
-            <h4>Benefits:</h4>
-            <div class="benefit-grid">
-              <div class="benefit">
-                <span class="benefit-icon">⚡</span>
-                <span>Save Time</span>
-              </div>
-              <div class="benefit">
-                <span class="benefit-icon">💰</span>
-                <span>Reduce Costs</span>
-              </div>
-              <div class="benefit">
-                <span class="benefit-icon">🎯</span>
-                <span>Increase Accuracy</span>
-              </div>
-              <div class="benefit">
-                <span class="benefit-icon">📈</span>
-                <span>Scale Faster</span>
-              </div>
-            </div>
-          </div>
+<div class="benefits">
+  <h4>Benefits:</h4>
+  <div class="benefit-grid">
+    <div class="benefit">
+      <div class="benefit-icon-lottie" id="benefitTime"></div>
+      <span>Save Time</span>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon-lottie" id="benefitCost"></div>
+      <span>Reduce Costs</span>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon-lottie" id="benefitAccuracy"></div>
+      <span>Increase Accuracy</span>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon-lottie" id="benefitScale"></div>
+      <span>Scale Faster</span>
+    </div>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -256,6 +256,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  .benefit-icon-lottie {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
   .page-hero {
     padding: 10rem 0 0rem;
     text-align: center;
@@ -562,6 +567,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
   // Import Lottie
   import lottie from 'lottie-web';
+  // Benefits Icons
+const benefitTime = document.getElementById('benefitTime');
+if (benefitTime) {
+  lottie.loadAnimation({
+    container: benefitTime,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/animations/benefit-time.json'
+  });
+}
+
+const benefitCost = document.getElementById('benefitCost');
+if (benefitCost) {
+  lottie.loadAnimation({
+    container: benefitCost,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/animations/benefit-cost.json'
+  });
+}
+
+const benefitAccuracy = document.getElementById('benefitAccuracy');
+if (benefitAccuracy) {
+  lottie.loadAnimation({
+    container: benefitAccuracy,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/animations/benefit-accuracy.json'
+  });
+}
+
+const benefitScale = document.getElementById('benefitScale');
+if (benefitScale) {
+  lottie.loadAnimation({
+    container: benefitScale,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '/animations/benefit-scale.json'
+  });
+}
 
   // Load animations when page loads
   document.addEventListener('DOMContentLoaded', () => {
