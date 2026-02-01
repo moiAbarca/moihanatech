@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<BaseLayout title="Copyright Notice" description="Copyright and trademark information for MoiHana Tech.">
+  <section class="page-hero">
+    <div class="container">
+      <h1>Copyright Notice</h1>
+      <p>Protecting Our Intellectual Property</p>
+    </div>
+  </section>
+
+  <section class="section legal-content">
+    <div class="container">
+      <div class="content-wrapper">
+        <div class="legal-section">
+          <h2>Copyright Statement</h2>
+          <p>
+            &copy; {currentYear} MoiHana Tech. All rights reserved.
+          </p>
+          <p>
+            All content on this website, including but not limited to text, graphics, logos, icons, 
+            images, audio clips, digital downloads, data compilations, and software, is the property 
+            of MoiHana Tech or its content suppliers and is protected by international copyright laws.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Website Content</h2>
+          <p>
+            The compilation of all content on this site is the exclusive property of MoiHana Tech and 
+            is protected by international copyright laws. All software used on this site is the property 
+            of MoiHana Tech or its software suppliers and is protected by international copyright laws.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Permitted Use</h2>
+          <p>
+            You may view, download, and print pages from this website for your personal, non-commercial 
+            use, subject to the following conditions:
+          </p>
+          <ul>
+            <li>You must not remove any copyright or other proprietary notices</li>
+            <li>Content may not be modified or altered in any way</li>
+            <li>Graphics and images may not be used separately from accompanying text</li>
+            <li>MoiHana Tech's name and logo may not be used without written permission</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>Prohibited Use</h2>
+          <p>
+            Unless otherwise specified, you may not:
+          </p>
+          <ul>
+            <li>Republish, redistribute, or reproduce any content from this website</li>
+            <li>Sell, rent, or sub-license content from this website</li>
+            <li>Reproduce, duplicate, or copy content for commercial purposes</li>
+            <li>Edit or otherwise modify any content on this website</li>
+            <li>Use content in any way that suggests an endorsement or affiliation with MoiHana Tech</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>Trademark Notice</h2>
+          <p>
+            "MoiHana Tech" and the MoiHana Tech logo are trademarks of MoiHana Tech. All other trademarks, 
+            product names, and company names mentioned on this website are the property of their respective 
+            owners and are used for identification purposes only.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Third-Party Content</h2>
+          <p>
+            This website may contain content provided by third parties, including materials provided by 
+            other users and third-party licensors. All statements and opinions expressed in such materials, 
+            and all articles and responses to questions, are solely the opinions and responsibility of the 
+            person or entity providing those materials.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Digital Millennium Copyright Act (DMCA) Notice</h2>
+          <p>
+            MoiHana Tech respects the intellectual property rights of others. If you believe that your 
+            copyrighted work has been copied in a way that constitutes copyright infringement, please 
+            provide us with the following information:
+          </p>
+          <ul>
+            <li>A physical or electronic signature of the copyright owner or authorized representative</li>
+            <li>Identification of the copyrighted work claimed to have been infringed</li>
+            <li>Identification of the material that is claimed to be infringing and its location</li>
+            <li>Your contact information (address, telephone number, and email)</li>
+            <li>A statement that you have a good faith belief that use of the material is not authorized</li>
+            <li>A statement that the information in the notification is accurate</li>
+          </ul>
+          <p>
+            Send DMCA notices to: <a href="mailto:contact@moihanatech.com">contact@moihanatech.com</a>
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Client Work and Portfolio</h2>
+          <p>
+            Work created for clients becomes the property of the client upon full payment, as specified 
+            in individual project agreements. However, MoiHana Tech retains the right to:
+          </p>
+          <ul>
+            <li>Display completed projects in our portfolio</li>
+            <li>Reference projects in marketing materials</li>
+            <li>Use projects as case studies (with client permission)</li>
+          </ul>
+          <p>
+            Clients may request that their projects not be displayed publicly, subject to agreement terms.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>Requesting Permission</h2>
+          <p>
+            If you wish to use any content from this website beyond the permitted use outlined above, 
+            or if you have questions about copyright or trademark usage, please contact us:
+          </p>
+          <div class="contact-box">
+            <p><strong>MoiHana Tech</strong></p>
+            <p>Email: <a href="mailto:contact@moihanatech.com">contact@moihanatech.com</a></p>
+            <p>Website: <a href="https://moihanatech.com">moihanatech.com</a></p>
+          </div>
+        </div>
+
+        <div class="legal-section">
+          <h2>Changes to This Notice</h2>
+          <p>
+            We reserve the right to update or modify this Copyright Notice at any time. Changes will be 
+            effective immediately upon posting to this page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding: 10rem 0 4rem;
+    text-align: center;
+    background: 
+      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+  }
+
+  .page-hero p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .legal-content {
+    padding: 4rem 0;
+  }
+
+  .content-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .legal-section {
+    margin-bottom: 3rem;
+  }
+
+  .legal-section h2 {
+    font-size: 1.75rem;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+  }
+
+  .legal-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .legal-section ul {
+    margin: 1rem 0 1.5rem 1.5rem;
+    list-style-type: disc;
+  }
+
+  .legal-section li {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .legal-section a:hover {
+    color: var(--color-secondary);
+  }
+
+  .contact-box {
+    background: var(--color-bg-light);
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+  }
+
+  .contact-box p {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 8rem 0 3rem;
+    }
+
+    .legal-content {
+      padding: 3rem 0;
+    }
+
+    .legal-section h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
