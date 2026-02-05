@@ -35,23 +35,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             <div class="form-group">
               <label for="email">Email Address *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                placeholder="john@example.com"
-              >
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                  title="Please enter a valid email address"
+                  placeholder="kiwi@example.com"
+                />
             </div>
 
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                placeholder="+64 00 0000000"
-              >
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone"
+                  placeholder="+64 21 123 4567"
+                  pattern="^(\+64|0)(2|3|4|6|7|9)\d{7,9}$"
+                  title="Enter a valid NZ phone number (e.g. +64 21 123 4567)"
+                />
             </div>
 
             <div class="form-group">
@@ -69,13 +73,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             <div class="form-group">
               <label for="message">Project Details *</label>
-              <textarea 
-                id="message" 
-                name="message" 
-                rows="6" 
-                required 
-                placeholder="Tell us about your project, timeline, and any specific requirements..."
-              ></textarea>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="6" 
+                  required
+                  maxlength="1000"
+                  placeholder="Tell us about your project, timeline, and any specific requirements..."
+                ></textarea>
             </div>
 
             <button type="submit" class="submit-btn">
@@ -498,6 +503,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
   import lottie from 'lottie-web';
 
+    const isValidNZPhone = (phone: string) => {
+    if (!phone.trim()) return true; // optional field
+    const nzRegex = /^(\+64|0)(2|3|4|6|7|9)\d{7,9}$/;
+    return nzRegex.test(phone.replace(/\s+/g, ''));
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     // Contact form handling
     const form = document.getElementById('contactForm') as HTMLFormElement;
@@ -529,6 +540,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     // Form submission
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+    const email = (form.querySelector('#email') as HTMLInputElement).value;
+    const phone = (form.querySelector('#phone') as HTMLInputElement).value;
+    const message = (form.querySelector('#message') as HTMLTextAreaElement).value;
+
+    if (!email.includes('@')) {
+      formMessage.textContent = 'Please enter a valid email address.';
+      formMessage.className = 'form-message error';
+      return;
+    }
+
+    if (!isValidNZPhone(phone)) {
+      formMessage.textContent = 'Please enter a valid New Zealand phone number.';
+      formMessage.className = 'form-message error';
+      return;
+    }
+
+    if (message.length > 1000) {
+      formMessage.textContent = 'Project details must be 1000 characters or less.';
+      formMessage.className = 'form-message error';
+      return;
+    }
       
       // Get form data
       const formData = new FormData(form);
