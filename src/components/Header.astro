@@ -81,12 +81,13 @@ const currentPath = Astro.url.pathname;
     list-style: none;
   }
 
-  .nav-links a {
-    font-weight: 500;
-    color: var(--color-text-muted);
-    transition: color 0.3s ease;
-    position: relative;
-  }
+.nav-links a {
+  font-weight: 500;
+  font-size: 1.2rem;  /* Add this line - increases from default 1rem */
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+  position: relative;
+}
 
   .nav-links a::after {
     content: '';
