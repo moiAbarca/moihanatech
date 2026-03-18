@@ -53,8 +53,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                   id="phone" 
                   name="phone"
                   placeholder="+64 21 123 4567"
-                  pattern="^(\+64|0)(2|3|4|6|7|9)\d{7,9}$"
-                  title="Enter a valid NZ phone number (e.g. +64 21 123 4567)"
+                  
                 />
             </div>
 
@@ -505,7 +504,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     const isValidNZPhone = (phone: string) => {
     if (!phone.trim()) return true; // optional field
-    const nzRegex = /^(\+64|0)(2|3|4|6|7|9)\d{7,9}$/;
+    const nzRegex = /^(\+64|0)(2\d{7,9}|[3-9]\d{6,8})$/;
     return nzRegex.test(phone.replace(/\s+/g, ''));
   };
 
@@ -545,7 +544,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const phone = (form.querySelector('#phone') as HTMLInputElement).value;
     const message = (form.querySelector('#message') as HTMLTextAreaElement).value;
 
-    if (!email.includes('@')) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
       formMessage.textContent = 'Please enter a valid email address.';
       formMessage.className = 'form-message error';
       return;
