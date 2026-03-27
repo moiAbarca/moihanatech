@@ -9,7 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.14",
+    "@astrojs/cloudflare": "^13.1.4",
+    "astro": "^6.1.1",
     "lottie-web": "^5.13.0"
   }
 }

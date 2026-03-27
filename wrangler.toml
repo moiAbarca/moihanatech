@@ -1,0 +1,5 @@
+name = "moihanatech"
+compatibility_date = "2024-09-23"
+
+[vars]
+API_BASE_URL = "https://api.moihanatech.com"

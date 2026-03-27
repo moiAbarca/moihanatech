@@ -1,0 +1,116 @@
+---
+export const prerender = false;
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout 
+  title="Infrastructure Monitor" 
+  subtitle="Server health, edge performance, and traffic spikes."
+  activeRoute="/dashboard/monitor"
+>
+  <div class="dash-section-header">
+    <h2>Real-time Traffic</h2>
+    <p>Simulating global request data across Cloudflare Edge.</p>
+  </div>
+
+  <div class="dash-chart-grid" style="grid-template-columns: 1fr;">
+    <div class="dash-chart-card">
+      <div class="dash-chart-header">
+        <h3 class="dash-chart-title">
+          <span class="material-icons-round">cloud_queue</span>
+          Edge Requests (Last 24h)
+        </h3>
+      </div>
+      <div class="dash-chart-canvas-wrap" style="height: 350px;">
+        <canvas id="monitorChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-section-header" style="margin-top: 3rem;">
+    <h2>System Health</h2>
+  </div>
+  <div class="dash-kpi-grid" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="dash-kpi-card accent-green">
+      <div class="dash-kpi-top">
+        <div class="dash-kpi-icon green">
+          <span class="material-icons-round">memory</span>
+        </div>
+        <span class="badge badge-active">Stable</span>
+      </div>
+      <div class="dash-kpi-value green">24%</div>
+      <div class="dash-kpi-label">Worker CPU Utilization</div>
+      <div class="dash-kpi-sub">Well within normal thresholds.</div>
+    </div>
+    <div class="dash-kpi-card accent-cyan">
+      <div class="dash-kpi-top">
+        <div class="dash-kpi-icon cyan">
+          <span class="material-icons-round">speed</span>
+        </div>
+      </div>
+      <div class="dash-kpi-value cyan">18ms</div>
+      <div class="dash-kpi-label">Global Latency</div>
+      <div class="dash-kpi-sub">Average TTFB worldwide.</div>
+    </div>
+  </div>
+
+</DashboardLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('monitorChart');
+    if (ctx && typeof Chart !== 'undefined') {
+      
+      let gradient = null;
+      if (ctx.getContext) {
+        gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 350);
+        gradient.addColorStop(0, 'rgba(56, 189, 248, 0.4)'); // Cyan
+        gradient.addColorStop(1, 'rgba(56, 189, 248, 0.0)'); 
+      }
+
+      // Generate some smooth artificial wave data
+      const data = Array.from({length: 24}).map((_, i) => 
+        (Math.sin(i / 3) * 200 + 400) + (Math.random() * 50)
+      );
+      const labels = Array.from({length: 24}).map((_, i) => `${i}:00`);
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Requests/min',
+            data,
+            borderColor: '#38bdf8', // Cyan
+            backgroundColor: gradient || 'rgba(56, 189, 248, 0.2)',
+            borderWidth: 2,
+            pointBackgroundColor: '#0f172a',
+            pointBorderColor: '#38bdf8',
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { color: '#64748b' },
+              grid: { color: 'rgba(100, 116, 139, 0.1)' },
+              border: { display: false }
+            },
+            x: {
+              ticks: { maxTicksLimit: 8, color: '#64748b' },
+              grid: { display: false },
+              border: { color: 'rgba(100, 116, 139, 0.1)' }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
