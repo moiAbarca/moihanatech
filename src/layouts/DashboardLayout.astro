@@ -1,0 +1,147 @@
+---
+import '../styles/dashboard.css';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  activeRoute: string;
+  /** Refresh interval in seconds. 0 = no refresh. Default: 600 (10 min) */
+  refreshInterval?: number;
+}
+
+const { title, subtitle, activeRoute, refreshInterval = 600 } = Astro.props;
+
+const navItems = [
+  { label: 'Overview',    href: '/dashboard',             icon: 'dashboard' },
+  { label: 'Leads',       href: '/dashboard/leads',       icon: 'group'     },
+  { label: 'Monitor',     href: '/dashboard/monitor',     icon: 'monitor_heart' },
+  { label: 'Business',    href: '/dashboard/business',    icon: 'trending_up' },
+  { label: 'Automations', href: '/dashboard/automations', icon: 'bolt'      },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{title} | MoiHana Dashboard</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <!-- Fonts (same as main site) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="dash">
+  <!-- ── Sidebar ── -->
+  <aside class="dash-sidebar" id="dash-sidebar">
+    <div class="dash-sidebar-header">
+      <img src="/logo.png" alt="MoiHana" class="dash-sidebar-logo" />
+      <span class="dash-sidebar-title">Dashboard</span>
+    </div>
+
+    <nav class="dash-nav">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class:list={['dash-nav-link', { active: activeRoute === item.href }]}
+        >
+          <span class="material-icons-round">{item.icon}</span>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="/" class="dash-nav-link">
+        <span class="material-icons-round">arrow_back</span>
+        Back to site
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile toggle -->
+  <button class="dash-menu-toggle" id="dash-menu-toggle" aria-label="Menu">
+    <span class="material-icons-round">menu</span>
+  </button>
+
+  <!-- ── Main ── -->
+  <main class="dash-main">
+    <header class="dash-topbar">
+      <div class="dash-topbar-left">
+        <h1>{title}</h1>
+        {subtitle && <p>{subtitle}</p>}
+      </div>
+      <div class="dash-topbar-right">
+        {refreshInterval > 0 && (
+          <span class="refresh-pill" id="refresh-pill">
+            <span class="material-icons-round">sync</span>
+            <span id="refresh-countdown">—</span>
+          </span>
+        )}
+        <div class="dash-refresh-indicator">
+          <div class="dash-refresh-dot" id="refresh-dot"></div>
+          <span id="refresh-status">Live</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dash-content">
+      <slot />
+    </div>
+  </main>
+</div>
+</body>
+</html>
+
+<style>
+  body { margin: 0; padding: 0; }
+</style>
+
+<script define:vars={{ refreshInterval }}>
+  // ── Sidebar toggle (mobile) ──
+  const sidebar = document.getElementById('dash-sidebar');
+  const menuBtn = document.getElementById('dash-menu-toggle');
+  menuBtn?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+  document.querySelectorAll('.dash-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) sidebar?.classList.remove('open');
+    });
+  });
+
+  // ── Auto-refresh countdown ──
+  if (refreshInterval > 0) {
+    const countdownEl = document.getElementById('refresh-countdown');
+    const dot = document.getElementById('refresh-dot');
+    const statusEl = document.getElementById('refresh-status');
+
+    let remaining = refreshInterval;
+
+    function formatTime(s) {
+      const m = Math.floor(s / 60);
+      const sec = s % 60;
+      return m > 0 ? `${m}m ${sec.toString().padStart(2,'0')}s` : `${s}s`;
+    }
+
+    function tick() {
+      remaining--;
+      if (countdownEl) countdownEl.textContent = formatTime(remaining);
+
+      if (remaining <= 0) {
+        // Trigger reload to refresh SSR-fetched data
+        if (dot) dot.classList.add('syncing');
+        if (statusEl) statusEl.textContent = 'Syncing…';
+        setTimeout(() => window.location.reload(), 400);
+      }
+    }
+
+    if (countdownEl) countdownEl.textContent = formatTime(remaining);
+    setInterval(tick, 1000);
+  }
+</script>

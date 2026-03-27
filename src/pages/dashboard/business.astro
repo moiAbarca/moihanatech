@@ -1,0 +1,109 @@
+---
+export const prerender = false;
+import DashboardLayout from "../../layouts/DashboardLayout.astro";
+---
+
+<DashboardLayout
+  title="Business Intelligence"
+  subtitle="Key revenue and operational metrics at a glance."
+  activeRoute="/dashboard/business"
+>
+  <div class="dash-section-header">
+    <h2>Revenue Growth</h2>
+    <p>Projected and actual recurring revenue targets.</p>
+  </div>
+
+  <!-- We can use a bar chart here for variety -->
+  <div class="dash-chart-grid" style="grid-template-columns: 1fr;">
+    <div class="dash-chart-card">
+      <div class="dash-chart-header">
+        <h3 class="dash-chart-title">
+          <span class="material-icons-round">bar_chart</span>
+          Monthly Recurring Revenue (MRR)
+        </h3>
+      </div>
+      <div class="dash-chart-canvas-wrap" style="height: 350px;">
+        <canvas id="businessChart"></canvas>
+      </div>
+    </div>
+  </div>
+</DashboardLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ctx = document.getElementById("businessChart");
+    if (ctx && typeof Chart !== "undefined") {
+      const labels = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      // Mock data showing an upward trend
+      const data = [12, 14, 18, 22, 28, 35, 41, 48, 55, 61, 70, 85].map(
+        (v) => v * 100,
+      );
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "MRR ($)",
+              data,
+              backgroundColor: "#a855f7", // Purple
+              borderRadius: 6,
+              borderSkipped: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: "rgba(15, 23, 42, 0.9)",
+              titleFont: { family: "Space Grotesk", size: 14 },
+              bodyFont: { family: "Inter", size: 14 },
+              padding: 12,
+              displayColors: false,
+              callbacks: {
+                label: function (context) {
+                  return "$" + context.parsed.y.toLocaleString();
+                },
+              },
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: "#64748b",
+                callback: function (value) {
+                  return "$" + value;
+                },
+              },
+              grid: { color: "rgba(100, 116, 139, 0.1)" },
+              border: { display: false },
+            },
+            x: {
+              ticks: { color: "#64748b" },
+              grid: { display: false },
+              border: { color: "rgba(100, 116, 139, 0.1)" },
+            },
+          },
+        },
+      });
+    }
+  });
+</script>

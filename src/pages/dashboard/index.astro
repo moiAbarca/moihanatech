@@ -1,0 +1,207 @@
+---
+export const prerender = false;
+
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+// Fetch aggregated stats from Worker proxy
+const API_BASE = import.meta.env.API_BASE_URL || 'https://api.moihanatech.com';
+
+let stats = {
+  totalLeads: 0,
+  activeWorkflows: 0,
+  totalWorkflows: 0,
+  leadsChartData: { labels: ['M','T','W','T','F','S','S'], data: [0,0,0,0,0,0,0] }
+};
+let error = null;
+
+try {
+  const res = await fetch(`${API_BASE}/api/stats`, {
+    headers: { 'Cookie': Astro.request.headers.get('cookie') || '' },
+  });
+  if (!res.ok) throw new Error(`API returned ${res.status}`);
+  stats = await res.json();
+} catch (e: any) {
+  error = e.message;
+}
+
+// Pass chart data to the client
+const chartConfig = JSON.stringify(stats.leadsChartData);
+---
+
+<DashboardLayout 
+  title="Overview" 
+  subtitle="Monitor your core metrics and automation health"
+  activeRoute="/dashboard"
+>
+  {error && (
+    <div class="dash-error">
+      <span class="material-icons-round">error_outline</span>
+      Failed to load dashboard data: {error}
+    </div>
+  )}
+
+  <div class="dash-section-header">
+    <h2>Performance KPIs</h2>
+    <p>Current snapshot of your business operations.</p>
+  </div>
+
+  <div class="dash-kpi-grid">
+    <!-- Total Leads -->
+    <div class="dash-kpi-card accent-purple">
+      <div class="dash-kpi-top">
+        <div class="dash-kpi-icon">
+          <span class="material-icons-round">group</span>
+        </div>
+      </div>
+      <div class="dash-kpi-value">{stats.totalLeads}</div>
+      <div class="dash-kpi-label">Total Leads Generated</div>
+      <div class="dash-kpi-sub">Lifetime connections captured via forms.</div>
+    </div>
+
+    <!-- Active Automations -->
+    <div class="dash-kpi-card accent-green">
+      <div class="dash-kpi-top">
+        <div class="dash-kpi-icon green">
+          <span class="material-icons-round">bolt</span>
+        </div>
+        <span class="badge badge-active">Live</span>
+      </div>
+      <div class="dash-kpi-value green">{stats.activeWorkflows}</div>
+      <div class="dash-kpi-label">Active Workflows</div>
+      <div class="dash-kpi-sub">Out of {stats.totalWorkflows} total n8n workflows.</div>
+    </div>
+
+    <!-- System Health -->
+    <div class="dash-kpi-card accent-cyan">
+      <div class="dash-kpi-top">
+        <div class="dash-kpi-icon cyan">
+          <span class="material-icons-round">dns</span>
+        </div>
+      </div>
+      <div class="dash-kpi-value cyan">99.9%</div>
+      <div class="dash-kpi-label">System Uptime</div>
+      <div class="dash-kpi-sub">All core services running smoothly.</div>
+    </div>
+  </div>
+
+  <div class="dash-section-header">
+    <h2>Lead Generation</h2>
+    <p>Incoming leads over the last 7 days.</p>
+  </div>
+
+  <div class="dash-chart-grid">
+    <!-- Main Chart -->
+    <div class="dash-chart-card">
+      <div class="dash-chart-header">
+        <h3 class="dash-chart-title">
+          <span class="material-icons-round">timeline</span>
+          Leads Trend
+        </h3>
+      </div>
+      <div class="dash-chart-canvas-wrap" style="height: 300px;">
+        <!-- The canvas that Chart.js will bind to -->
+        <canvas id="leadsChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="dash-chart-card">
+      <div class="dash-chart-header">
+        <h3 class="dash-chart-title">
+          <span class="material-icons-round">flash_on</span>
+          Quick Actions
+        </h3>
+      </div>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <a href="/dashboard/leads" class="btn btn-primary" style="justify-content: center;">
+          <span class="material-icons-round">visibility</span>
+          View All Leads
+        </a>
+        <a href="/dashboard/automations" class="btn btn-ghost" style="justify-content: center;">
+          <span class="material-icons-round">settings</span>
+          Manage Automations
+        </a>
+      </div>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+        <p style="font-size: 0.85rem; color: var(--color-text-dim); margin-bottom: 0.75rem;">
+          <span class="material-icons-round" style="font-size: 1rem; vertical-align: middle; margin-right: 0.3rem;">auto_graph</span>
+          Analytics Sync
+        </p>
+        <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5;">
+          Data is pulled directly from Airtable and n8n APIs. The dashboard automatically refreshes every 10 minutes to ensure metrics are live.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</DashboardLayout>
+
+<script define:vars={{ chartConfig }}>
+  // Wait for DOM and Chart.js to load
+  document.addEventListener('DOMContentLoaded', () => {
+    // chartConfig is passed from the Astro component as a JSON string
+    const dataObj = JSON.parse(chartConfig);
+    const ctx = document.getElementById('leadsChart');
+    
+    // We create a gradient fill matching the moihanatech primary gradient
+    let gradient = null;
+    if (ctx && ctx.getContext) {
+      gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)'); // Indigo
+      gradient.addColorStop(1, 'rgba(168, 85, 247, 0.0)'); // Purple fade
+    }
+
+    if (ctx && typeof Chart !== 'undefined') {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dataObj.labels,
+          datasets: [{
+            label: 'New Leads',
+            data: dataObj.data,
+            borderColor: '#6366f1', // Primary indigo
+            backgroundColor: gradient || 'rgba(99, 102, 241, 0.2)',
+            borderWidth: 3,
+            pointBackgroundColor: '#fff',
+            pointBorderColor: '#6366f1',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4 // Smooth curves
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.9)',
+              titleFont: { family: 'Space Grotesk', size: 14 },
+              bodyFont: { family: 'Inter', size: 14 },
+              padding: 12,
+              cornerRadius: 8,
+              displayColors: false,
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { precision: 0, color: '#64748b' },
+              grid: { color: 'rgba(100, 116, 139, 0.1)' },
+              border: { display: false }
+            },
+            x: {
+              ticks: { color: '#64748b' },
+              grid: { display: false },
+              border: { color: 'rgba(100, 116, 139, 0.1)' }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>

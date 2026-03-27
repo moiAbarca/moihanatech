@@ -1,0 +1,188 @@
+---
+export const prerender = false;
+
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const API_BASE = import.meta.env.API_BASE_URL || 'https://api.moihanatech.com';
+
+let workflows: any[] = [];
+let error = null;
+
+try {
+  const res = await fetch(`${API_BASE}/api/automations`, {
+    headers: {
+      'Cookie': Astro.request.headers.get('cookie') || '',
+    },
+  });
+  
+  if (!res.ok) throw new Error(`API responded ${res.status}`);
+  const data = await res.json();
+  // Filter out archived workflows completely
+  workflows = data.workflows.filter((w: any) => !w.isArchived);
+} catch (e: any) {
+  error = e.message;
+}
+
+// Ensure the API URL is known on the client
+const apiUrl = `${API_BASE}/api/automations`;
+---
+
+<DashboardLayout 
+  title="Automations" 
+  subtitle="Manage and toggle your active n8n workflows."
+  activeRoute="/dashboard/automations"
+  refreshInterval={0} 
+>
+  {error && (
+    <div class="dash-error">
+      <span class="material-icons-round">error_outline</span>
+      Failed to load automations: {error}
+    </div>
+  )}
+
+  <div class="dash-section-header">
+    <h2>Workflow Controls ({workflows.length})</h2>
+    <p>Enable or disable automated processes instantly.</p>
+  </div>
+
+  <div class="automation-grid">
+    {workflows.length > 0 ? workflows.map(wf => (
+      <div class="automation-card">
+        <div class="automation-card-head">
+          <div style="flex: 1;">
+            <div class="automation-name">{wf.name}</div>
+            <div class="automation-meta">
+              Updated {new Date(wf.updatedAt).toLocaleDateString()}
+            </div>
+          </div>
+          
+          <!-- iOS-style toggle wrapper -->
+          <label class="toggle" title={wf.active ? "Click to disable" : "Click to enable"}>
+            <input 
+              type="checkbox" 
+              class="workflow-toggle"
+              data-id={wf.id}
+              data-name={wf.name}
+              checked={wf.active} 
+            />
+            <div class="toggle-track"></div>
+            <div class="toggle-thumb"></div>
+          </label>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          {wf.tags && wf.tags.map((t: any) => (
+            <span class="automation-tag">{t.name}</span>
+          ))}
+          {(!wf.tags || wf.tags.length === 0) && (
+            <span class="automation-meta">No tags</span>
+          )}
+        </div>
+      </div>
+    )) : (
+      <div class="dash-empty" style="grid-column: 1 / -1;">
+        <span class="material-icons-round">bolt</span>
+        <h3>No automations found</h3>
+        <p>Connect your n8n instance to start managing workflows.</p>
+      </div>
+    )}
+  </div>
+
+  <!-- Confirm Modal Overlay -->
+  <div class="dash-modal-overlay" id="confirm-modal">
+    <div class="dash-modal">
+      <h3 id="modal-title">Confirm Action</h3>
+      <p id="modal-desc">Are you sure?</p>
+      <div class="dash-modal-actions">
+        <button class="btn btn-ghost" id="modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="modal-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+</DashboardLayout>
+
+<script define:vars={{ apiUrl }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('confirm-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const btnCancel = document.getElementById('modal-cancel');
+    const btnConfirm = document.getElementById('modal-confirm');
+    
+    let pendingCheckbox = null;
+    let pendingState = false;
+    let pendingId = null;
+
+    // Handle toggle clicks
+    document.querySelectorAll('.workflow-toggle').forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        e.preventDefault();
+        
+        const target = e.target;
+        const id = target.getAttribute('data-id');
+        const name = target.getAttribute('data-name');
+        const newState = target.checked;
+
+        // Revert visually immediately so the toggle stays until confirmed
+        target.checked = !newState;
+
+        // Setup modal
+        pendingCheckbox = target;
+        pendingId = id;
+        pendingState = newState;
+
+        if (modalTitle && modalDesc) {
+          modalTitle.textContent = newState ? 'Enable Workflow' : 'Disable Workflow';
+          modalDesc.innerHTML = `Are you sure you want to <strong>${newState ? 'enable' : 'disable'}</strong> the workflow:<br/><em>${name}</em>?`;
+        }
+
+        modal?.classList.add('open');
+      });
+    });
+
+    // Cancel
+    btnCancel?.addEventListener('click', () => {
+      modal?.classList.remove('open');
+      pendingCheckbox = null;
+    });
+
+    // Custom confirm (actually hits the API)
+    btnConfirm?.addEventListener('click', async () => {
+      if (!pendingCheckbox || !pendingId) return;
+
+      const btn = btnConfirm;
+      const originalText = btn.textContent;
+      btn.textContent = 'Updating...';
+      btn.style.opacity = '0.7';
+      btn.style.pointerEvents = 'none';
+
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ workflowId: pendingId, active: pendingState }),
+        });
+
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+
+        // Success: update visual toggle state
+        pendingCheckbox.checked = pendingState;
+        
+      } catch (err) {
+        alert('Failed to update workflow: ' + err.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+        modal?.classList.remove('open');
+        pendingCheckbox = null;
+      }
+    });
+
+    // Close on click outside
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) btnCancel?.click();
+    });
+  });
+</script>
