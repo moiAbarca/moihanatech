@@ -1,0 +1,29 @@
+name = "moihanatech-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+# ──────────────────────────────────────────────
+# Non-secret environment variables
+# ──────────────────────────────────────────────
+[vars]
+ALLOWED_ORIGIN = "https://moihanatech.com"
+GRAFANA_URL = "https://grafana.moihanatech.com"
+METABASE_URL = "https://metabase.moihanatech.com"
+
+# ──────────────────────────────────────────────
+# Secrets (set via `wrangler secret put <NAME>`)
+# ──────────────────────────────────────────────
+# AIRTABLE_API_KEY
+# AIRTABLE_BASE_ID
+# N8N_API_KEY
+# N8N_BASE_URL
+# CF_ACCESS_CLIENT_ID
+# CF_ACCESS_CLIENT_SECRET
+# CF_ACCESS_TEAM_DOMAIN
+
+# ──────────────────────────────────────────────
+# Route configuration (adjust domain as needed)
+# ──────────────────────────────────────────────
+# [route]
+# pattern = "api.moihanatech.com/*"
+# custom_domain = true
